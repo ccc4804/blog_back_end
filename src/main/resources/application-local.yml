@@ -1,0 +1,59 @@
+server:
+  port: 4000
+  error:
+    include-message: always
+    include-binding-errors: always
+
+spring:
+  application:
+    name: blog
+  profiles:
+    active: local
+
+  # db
+  datasource:
+    #    url: jdbc:mysql://localhost:3306/member?autoReconnect=true&useUnicode=true&characterEncoding=UTF-8&serverTimezone=UTC&useSSL=false
+    url: jdbc:log4jdbc:mysql://localhost:3306/blog?autoReconnect=true&useUnicode=true&characterEncoding=UTF-8&serverTimezone=UTC&useSSL=false
+    username: blog
+    password: P@ssw0rd
+    #    driver-class-name: com.mysql.jdbc.Driver
+    driver-class-name: net.sf.log4jdbc.sql.jdbcapi.DriverSpy
+
+  #JPA
+  jpa:
+    show-sql: true
+    generate-ddl: true
+    open-in-view: false
+    hibernate:
+      ddl-auto: update
+    properties:
+      org.hibernate.envers.audit_table_suffix: _revision
+      hibernate:
+        dialect: org.hibernate.dialect.MySQL8Dialect
+        dialect.storage_engine: innodb
+        format_sql: true
+        # bulk insert, update를 위한 설정
+        batch_size: 50
+        order_inserts: true
+        order_updates: true
+
+# Logging Config
+logging:
+  level:
+    com.blog.api: debug
+    org.hibernate.type.descriptor.sql: off
+  config: classpath:logback-spring.xml
+  file:
+    name: log/mommaeat.log
+    max-history: 60
+    max-size: 10MB
+
+# Spring Doc Config
+springdoc:
+  api-docs:
+    path: /blog/api-docs #doc default path : /v3/api-docs
+    groups.enabled: true
+  swagger-ui:
+    path: /blog/swagger-ui #swagger default path : /swagger-ui.html
+    display-request-duration: true
+    groups-order: DESC
