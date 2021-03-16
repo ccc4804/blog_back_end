@@ -7,17 +7,16 @@ server:
 spring:
   application:
     name: blog
-  profiles:
-    active: local
 
   # db
   datasource:
-    #    url: jdbc:mysql://localhost:3306/member?autoReconnect=true&useUnicode=true&characterEncoding=UTF-8&serverTimezone=UTC&useSSL=false
-    url: jdbc:log4jdbc:mysql://localhost:3306/blog?autoReconnect=true&useUnicode=true&characterEncoding=UTF-8&serverTimezone=UTC&useSSL=false
+    url: jdbc:mysql://database-1.cx8ngh3lrjuh.ap-northeast-2.rds.amazonaws.com:3306/blog?autoReconnect=true&useUnicode=true&characterEncoding=UTF-8&serverTimezone=UTC&useSSL=false
+    #    url: jdbc:log4jdbc:mysql://localhost:3306/blog?autoReconnect=true&useUnicode=true&characterEncoding=UTF-8&serverTimezone=UTC&useSSL=false
     username: blog
     password: P@ssw0rd
-    #    driver-class-name: com.mysql.jdbc.Driver
-    driver-class-name: net.sf.log4jdbc.sql.jdbcapi.DriverSpy
+
+    driver-class-name: com.mysql.jdbc.Driver
+  #    driver-class-name: net.sf.log4jdbc.sql.jdbcapi.DriverSpy
 
   #JPA
   jpa:
@@ -44,7 +43,7 @@ logging:
     org.hibernate.type.descriptor.sql: off
   config: classpath:logback-spring.xml
   file:
-    name: log/mommaeat.log
+    name: log/blog.log
     max-history: 60
     max-size: 10MB
 
